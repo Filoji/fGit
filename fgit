@@ -6,26 +6,38 @@ from fgit_lib import check, create, utils
 
 def manpage():
 	print("""
-fGit, by Filoji
+{2}fGit{0}, by Filoji
 
-Usage: fgit [ check [ <directory> ] | create [ -h ] [ <directory> | branch [] ] ]
+{2}Usage{0}: fgit [ check [ -t=<directory> ] | create [ -h ] [ -t=<directory> ], [ -n=<name> ] | branch -w [ -t=<>directory ] ]
 
-CHECK:
-		check if there is a '.fgit' file in actual directory.
-	<directory>
+{1}CHECK{0}:
+		Check if there is a '.fgit' directory in actual directory.
+	{4}-t={3}<directory>{0}
 		Change the targeted directory to the gave directory.
-CREATE:
+{1}CREATE{0}:
 		Create a directory in the actual directory with the name of the project, and create a '.fgit' directory in it.
-	-h
+	{4}-h{0}
 		Create the '.fgit' directory directly in the gave directory.
-	<directory>
+	{4}-t={3}<directory>{0}
 		Change the targeted directory to the gave directory.
-""")
+	{4}-n={3}<name>{0}
+		Choose the name of the project.
+{1}BRANCH{0}:
+		Show all branches an the actual working branches of the project in the gave directory.
+	{4}-w{0}
+		Show the actual working branch of the project in the gave directory.
+	{4}-t={3}<directory>{0}
+		Change the targeted directory to the gave directory.
+""".format(utils.Colors.stop, utils.Colors.yellow, utils.Colors.bold, utils.Colors.underlined, utils.Colors.italic))
 
 if len(sys.argv) == 1:
 	manpage()
 else:
 	if sys.argv[1] == 'check':
 		check.check()
-	if sys.argv[1] == 'create':
+	elif sys.argv[1] == 'create':
 		create.create()
+	elif sys.argv[1] == 'branch':
+		branch.branch()
+	else:
+		print("No argument named '{}'.".format(sys.argv[1]))
