@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+import sys
+import os
+from fgit_lib import check, create, utils
+
+
+def manpage():
+	print("""
+fGit, by Filoji
+
+Usage: fgit [ check [ <directory> ] | create [ -h ] [ <directory> | branch [] ] ]
+
+CHECK:
+		check if there is a '.fgit' file in actual directory.
+	<directory>
+		Change the targeted directory to the gave directory.
+CREATE:
+		Create a directory in the actual directory with the name of the project, and create a '.fgit' directory in it.
+	-h
+		Create the '.fgit' directory directly in the gave directory.
+	<directory>
+		Change the targeted directory to the gave directory.
+""")
+
+if len(sys.argv) == 1:
+	manpage()
+else:
+	if sys.argv[1] == 'check':
+		check.check()
+	if sys.argv[1] == 'create':
+		create.create()
